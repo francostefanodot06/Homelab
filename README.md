@@ -32,7 +32,7 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 |------------|----------------|
 | CPU | AMD Ryzen 7 2700X |
 | RAM | 16 GB DDR4 |
-| GPU | NVIDIA RTX 3050 8GB |
+| GPU | AMD Radeon RX 9060 XT 16GB Vram |
 | Motherboard | MSI B450M A PRO MAX |
 | Almacenamiento | 1 M.2 - 2 SSD - 1 HDD|
 | Hipervisor | Proxmox VE |
