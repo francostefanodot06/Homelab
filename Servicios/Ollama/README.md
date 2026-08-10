@@ -12,56 +12,12 @@ La ejecución local permite experimentar con diferentes modelos de IA sin depend
 
 El objetivo de Ollama dentro del homelab es proporcionar un runtime local para ejecutar y administrar modelos de lenguaje (LLM).
 
-Ollama funciona como la capa de inferencia de Puck:
-
-```text
-Usuario
-   │
-   ▼
-Open WebUI
-   │
-   ▼
-Puck
-   │
-   ▼
-Ollama
-   │
-   ▼
-Modelo LLM
-   │
-   ▼
-RX 9060 XT 16 GB
-```
-
----
-
 ## 🏗️ Arquitectura
 
 Ollama no se ejecuta dentro de Docker en este homelab.
 
 La arquitectura actual utiliza Ollama como un servicio administrado mediante `systemd`, mientras que otros componentes de Puck, como Open WebUI y SearXNG, se ejecutan mediante Docker.
 
-```text
-                    Proxmox
-                       │
-                       ▼
-                Ubuntu 22.04.5 LTS
-                 "PuckProject"
-                       │
-          ┌────────────┴────────────┐
-          │                         │
-          ▼                         ▼
-       Ollama                    Docker
-       systemd                     │
-          │                 ┌──────┴──────┐
-          │                 │             │
-          ▼                 ▼             ▼
-    RX 9060 XT         Open WebUI       SearXNG
-       16 GB                │
-                            │
-                            ▼
-                           Puck
-```
 
 ### Componentes
 
@@ -322,19 +278,6 @@ La API se encuentra disponible en el puerto:
 11434
 ```
 
-Arquitectura de comunicación:
-
-```text
-Open WebUI
-     │
-     │ HTTP
-     ▼
-Ollama :11434
-     │
-     ▼
-Modelo LLM
-```
-
 Esta API es utilizada por Open WebUI para enviar las consultas de los usuarios al motor de inferencia.
 
 ---
@@ -343,27 +286,7 @@ Esta API es utilizada por Open WebUI para enviar las consultas de los usuarios a
 
 Open WebUI se ejecuta como un contenedor Docker independiente.
 
-La arquitectura separa la interfaz de usuario del motor de inferencia:
 
-```text
-┌──────────────────┐
-│    Open WebUI    │
-│     Docker       │
-└────────┬─────────┘
-         │
-         │ API
-         ▼
-┌──────────────────┐
-│      Ollama      │
-│     systemd      │
-└────────┬─────────┘
-         │
-         ▼
-┌──────────────────┐
-│   RX 9060 XT     │
-│     16 GB        │
-└──────────────────┘
-```
 
 Esta separación permite mantener el runtime de IA independiente de la interfaz web.
 
@@ -372,21 +295,6 @@ Esta separación permite mantener el runtime de IA independiente de la interfaz 
 ## 🔗 Integración con Puck
 
 Puck utiliza Ollama como backend de inferencia local.
-
-```text
-                  Puck
-                   │
-                   ▼
-              Open WebUI
-                   │
-                   ▼
-                Ollama
-                   │
-          ┌────────┴────────┐
-          │                 │
-          ▼                 ▼
-       Modelo            RX 9060 XT
-```
 
 Open WebUI proporciona la interfaz y las funciones adicionales, mientras que Ollama se encarga de ejecutar los modelos.
 
@@ -470,25 +378,7 @@ Se planea incorporar benchmarks de los diferentes modelos para comparar velocida
 ## 🧠 Lecciones aprendidas
 
 La implementación de Ollama permitió experimentar con una infraestructura de inferencia completamente local y entender la relación entre:
-
-```text
-Hardware
-   ↓
-Sistema operativo
-   ↓
-Servicio systemd
-   ↓
-Ollama
-   ↓
-Modelos
-   ↓
-Open WebUI
-   ↓
-Puck
-```
-
 Una de las decisiones principales fue mantener Ollama fuera de Docker para separar el motor de inferencia del resto de los servicios y facilitar el acceso directo al hardware de aceleración.
-
 La infraestructura continúa evolucionando a medida que se incorporan nuevos modelos, herramientas y servicios al homelab.
 
 ---
