@@ -109,33 +109,7 @@ services/docker/services/searxng/docker-compose.yml
 
 Configuración utilizada:
 
-```yaml
-services:
-  searxng:
-    container_name: searxng
-
-    image: searxng/searxng:latest
-
-    security_opt:
-      - apparmor:unconfined
-
-    ports:
-      - "8080:8080"
-
-    volumes:
-      - ./searxng:/etc/searxng:rw
-
-    environment:
-      - SEARXNG_HOSTNAME=localhost:8080/
-
-    restart: unless-stopped
-
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "1m"
-        max-file: "1"
-```
+Servicios/SearXNG/docker-compose.yml
 
 ## Parámetros principales
 
