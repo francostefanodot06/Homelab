@@ -14,74 +14,13 @@ El objetivo de esta configuración es permitir que los servicios de inteligencia
 
 La GPU es utilizada principalmente por **Ollama** para ejecutar modelos de lenguaje localmente.
 
-La arquitectura resultante es:
 
-```text
-┌──────────────────────────────────────────────┐
-│                  Hardware                    │
-│                                              │
-│          AMD Radeon RX 9060 XT               │
-│                 16 GB VRAM                   │
-└──────────────────────┬───────────────────────┘
-                       │
-                       ▼
-┌──────────────────────────────────────────────┐
-│                 Proxmox VE                   │
-│                                              │
-│       Configuración de dispositivos LXC      │
-│                                              │
-│  /dev/kfd                                    │
-│  /dev/dri/card0                              │
-│  /dev/dri/renderD128                         │
-└──────────────────────┬───────────────────────┘
-                       │
-                       ▼
-┌──────────────────────────────────────────────┐
-│                Ubuntu LXC                    │
-│                                              │
-│              Puck / Ollama                   │
-└──────────────────────┬───────────────────────┘
-                       │
-                       ▼
-┌──────────────────────────────────────────────┐
-│                    ROCm                      │
-│                                              │
-│          Stack de computación AMD            │
-└──────────────────────┬───────────────────────┘
-                       │
-                       ▼
-                  Modelos LLM
-```
-
----
 
 # 🏗️ Arquitectura
 
 La infraestructura utiliza Proxmox VE como hipervisor y una LXC dedicada para los servicios de inteligencia artificial.
 
 Ollama se ejecuta directamente dentro de Ubuntu mediante `systemd`, mientras que otros componentes de Puck, como Open WebUI y SearXNG, se ejecutan mediante Docker.
-
-```text
-                       Proxmox VE
-                           │
-                           ▼
-                    ┌─────────────┐
-                    │ Ubuntu LXC  │
-                    │   Puck      │
-                    └──────┬──────┘
-                           │
-             ┌─────────────┴─────────────┐
-             │                           │
-             ▼                           ▼
-          Ollama                      Docker
-             │                           │
-             ▼                    ┌──────┴──────┐
-          ROCm                    │             │
-             │                 Open WebUI    SearXNG
-             ▼
-       RX 9060 XT
-         16 GB
-```
 
 ---
 
@@ -136,31 +75,6 @@ Los principales dispositivos utilizados son:
 /dev/dri/renderD128
 ```
 
-La relación entre las capas es:
-
-```text
-GPU física
-    │
-    ▼
-Proxmox / Linux kernel
-    │
-    ├── /dev/kfd
-    │
-    └── /dev/dri/
-            ├── card0
-            └── renderD128
-                    │
-                    ▼
-                 Ubuntu LXC
-                    │
-                    ▼
-                   ROCm
-                    │
-                    ▼
-                  Ollama
-```
-
----
 
 # ⚙️ Configuración de dispositivos
 
@@ -199,27 +113,6 @@ lxc.cgroup2.devices.allow: c 10:200 rwm
 La aceleración de IA utiliza el stack de computación de AMD **ROCm**.
 
 ROCm proporciona las herramientas y librerías necesarias para que las aplicaciones compatibles puedan utilizar las GPU AMD para cargas de cómputo.
-
-La cadena de software utilizada es:
-
-```text
-AMD Radeon RX 9060 XT
-          │
-          ▼
-       amdgpu
-          │
-          ▼
-   /dev/kfd + /dev/dri
-          │
-          ▼
-         ROCm
-          │
-          ▼
-        Ollama
-          │
-          ▼
-       Modelo LLM
-```
 
 La instalación y configuración de ROCm se realizó tomando como referencia la documentación oficial de AMD:
 
@@ -279,20 +172,6 @@ Estas herramientas permiten comprobar que el entorno Linux puede detectar correc
 # 🤖 Integración con Ollama
 
 Ollama se ejecuta directamente dentro de Ubuntu mediante `systemd`.
-
-```text
-Ubuntu
-  │
-  ├── ROCm
-  │
-  └── Ollama
-        │
-        ▼
-  RX 9060 XT 16 GB
-        │
-        ▼
-     Modelos LLM
-```
 
 La instalación de Ollama está documentada por separado:
 
@@ -386,23 +265,14 @@ Los problemas investigados incluyeron:
 
 La experiencia demostró que un problema de aceleración de GPU puede encontrarse en diferentes capas:
 
-```text
 Hardware
-   ↓
 Proxmox
-   ↓
 LXC
-   ↓
 Linux
-   ↓
 amdgpu
-   ↓
 ROCm
-   ↓
 Ollama
-   ↓
 Modelo
-```
 
 Por este motivo, las comprobaciones se realizan progresivamente desde las capas inferiores hacia las superiores.
 
@@ -453,33 +323,21 @@ La experiencia con la RTX 3050 llevó a rediseñar la infraestructura de IA.
 
 La arquitectura anterior utilizaba:
 
-```text
+
 RTX 3050
-    ↓
 Proxmox
-    ↓
 VM
-    ↓
 Drivers NVIDIA
-    ↓
 Ollama
-```
 
 La arquitectura actual utiliza:
 
-```text
 RX 9060 XT
-    ↓
 Proxmox
-    ↓
 LXC
-    ↓
 /dev/kfd + /dev/dri
-    ↓
 ROCm
-    ↓
 Ollama
-```
 
 Además del aumento de VRAM de **8 GB a 16 GB**, la nueva arquitectura permite mantener Puck dentro de una LXC dedicada y separar el acceso al hardware de los servicios que se ejecutan mediante Docker.
 
@@ -491,23 +349,14 @@ La implementación del GPU passthrough permitió comprender que la aceleración 
 
 Existe una cadena completa de dependencias:
 
-```text
 Hardware
-   ↓
 Hipervisor
-   ↓
 Virtualización
-   ↓
 Dispositivos del kernel
-   ↓
 Drivers
-   ↓
 Runtime de aceleración
-   ↓
 Runtime de inferencia
-   ↓
 Modelo
-```
 
 Cada capa debe funcionar correctamente antes de diagnosticar la siguiente.
 
