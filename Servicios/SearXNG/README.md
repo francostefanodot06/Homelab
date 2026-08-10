@@ -109,7 +109,7 @@ services/docker/services/searxng/docker-compose.yml
 
 Configuración utilizada:
 
-Servicios/SearXNG/docker-compose.yml
+[Servicios/SearXNG/docker-compose.yml](https://github.com/francostefanodot06/Homelab/blob/c20a482c7c843c7da6e1146aea885c133c8c1af2/Servicios/SearXNG/docker-compose.yml)
 
 ## Parámetros principales
 
