@@ -8,51 +8,7 @@ Open WebUI proporciona la interfaz de conversación, gestión de modelos, RAG, h
 
 La implementación está dividida en componentes independientes:
 
-```text
-                    ┌─────────────────────┐
-                    │      Usuario        │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │     Open WebUI      │
-                    │      Docker         │
-                    └──────────┬──────────┘
-                               │
-                    HTTP :11434│
-                               ▼
-                    ┌─────────────────────┐
-                    │       Ollama        │
-                    │   Host / CT local   │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │    AMD RX 9060 XT   │
-                    │      16 GB VRAM     │
-                    └─────────────────────┘
-```
 
-La búsqueda web funciona como un componente independiente:
-
-```text
-Open WebUI
-    │
-    ▼
-SearXNG
-    │
-    ▼
-Motores de búsqueda
-    │
-    ▼
-Resultados
-    │
-    ▼
-Contexto inyectado en Open WebUI
-    │
-    ▼
-Modelo local mediante Ollama
-```
 
 ## 🐳 Despliegue
 
@@ -134,21 +90,7 @@ Open WebUI también se encuentra integrado con una instancia local de **SearXNG*
 
 El objetivo es permitir que Puck pueda realizar búsquedas web y utilizar los resultados como contexto para responder.
 
-La arquitectura es:
 
-```text
-Usuario
-   │
-   ▼
-Open WebUI
-   │
-   ├──────────────► Ollama
-   │
-   └──────────────► SearXNG
-                         │
-                         ▼
-                   Internet / Search Engines
-```
 
 La configuración y despliegue de SearXNG se documentan por separado.
 
