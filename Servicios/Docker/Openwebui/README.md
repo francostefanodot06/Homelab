@@ -232,9 +232,9 @@ Los valores sensibles deben sustituirse por placeholders antes de realizar un co
 
 ## 🔗 Documentación relacionada
 
-* **Ollama:** `services/docker/services/ollama/`
-* **SearXNG:** `services/docker/services/searxng/`
-* **GPU / AMD ROCm:** documentación específica del passthrough de la RX 9060 XT.
+* **Ollama:** [`services/docker/services/ollama/`] (https://github.com/francostefanodot06/Homelab/tree/246def23fb9b0305465e923df79003bd41ceae99/Servicios/SearXNG)
+* **SearXNG:** `services/docker/services/searxng/` https://github.com/francostefanodot06/Homelab/blob/246def23fb9b0305465e923df79003bd41ceae99/Servicios/SearXNG/README.md
+* **GPU / AMD ROCm:** documentación específica del passthrough de la RX 9060 XT. https://github.com/francostefanodot06/Homelab/blob/246def23fb9b0305465e923df79003bd41ceae99/Servicios/Ollama/GPU.md
 * **Proxmox:** `services/proxmox/`
 
 ---
