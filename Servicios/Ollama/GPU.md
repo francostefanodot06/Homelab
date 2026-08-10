@@ -517,6 +517,20 @@ La migración desde la RTX 3050 también permitió experimentar con dos arquitec
 
 # 📚 Referencias
 
-* AMD — Documentación oficial de instalación de ROCm.
-* Proxmox VE — Documentación oficial de Linux Containers.
-* Ollama — Documentación oficial.
+* AMD — Documentación oficial de instalación de ROCm: https://rocm.docs.amd.com/en/latest/install/rocm.html?fam=all&w=graphics&os=ubuntu&ubuntu-ver=24.04#installation
+* Proxmox VE — Documentación oficial de Linux Containers: https://pve.proxmox.com/pve-docs/?utm_source=chatgpt.com
+* Ollama — Documentación oficial: https://github.com/ollama/ollama?utm_source=chatgpt.com
+# 🎥 Recursos utilizados
+
+Además de la documentación oficial, durante el desarrollo y troubleshooting
+se consultaron diferentes recursos de la comunidad.
+
+### Guías y videos
+
+- [Self-Host a local AI platform! Ollama + Open WebUI](https://youtu.be/RQFfK7xIL28)
+  — Recurso utilizado como referencia durante la implementación de la plataforma
+  de IA local con Ollama y Open WebUI.
+
+- [Host a Private AI Server at Home with Proxmox Ollama and OpenWebUI](https://youtu.be/y5-6qww8uKk)
+  — Recurso utilizado principalmente durante la etapa inicial del proyecto,
+  cuando Ollama se ejecutaba en una VM de Proxmox utilizando la RTX 3050 de 8gb de Vram, Tarjeta gráfica con la cual habia empezado este proyecto y a la cual le guardo cariño.
