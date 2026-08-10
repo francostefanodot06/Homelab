@@ -10,37 +10,6 @@ SearXNG funciona como el motor de búsqueda web utilizado por Puck para obtener 
 
 Incorporar capacidades de búsqueda web al asistente local Puck mediante una instancia propia de SearXNG.
 
-El objetivo es construir el siguiente flujo:
-
-```text
-Usuario
-   │
-   ▼
-Open WebUI
-   │
-   │ Web Search
-   ▼
-SearXNG
-   │
-   ├── Motor de búsqueda A
-   ├── Motor de búsqueda B
-   ├── Motor de búsqueda C
-   └── ...
-   │
-   ▼
-Resultados web
-   │
-   ▼
-Open WebUI
-   │
-   │ Contexto recuperado
-   ▼
-Modelo local (Qwen)
-   │
-   ▼
-Respuesta de Puck
-```
-
 De esta forma, el modelo de lenguaje continúa ejecutándose localmente mientras SearXNG se encarga de consultar fuentes externas.
 
 ---
@@ -48,36 +17,6 @@ De esta forma, el modelo de lenguaje continúa ejecutándose localmente mientras
 # 🏗️ Arquitectura
 
 SearXNG se ejecuta como un contenedor Docker independiente dentro del servidor del homelab.
-
-```text
-                    ┌──────────────────────┐
-                    │      PuckProject     │
-                    │    Ubuntu 22.04 LTS  │
-                    └──────────┬───────────┘
-                               │
-                         Docker Engine
-                               │
-              ┌────────────────┴────────────────┐
-              │                                 │
-      ┌───────▼────────┐               ┌────────▼───────┐
-      │   Open WebUI   │               │     SearXNG    │
-      │     :3000      │──────────────►│      :8080     │
-      └───────┬────────┘  Web Search   └────────┬───────┘
-              │                                  │
-              │                                  ▼
-              │                           Motores externos
-              │
-              ▼
-          Ollama
-              │
-              ▼
-        Modelos locales
-              │
-              ▼
-             Puck
-```
-
----
 
 # 🖥️ Entorno
 
@@ -231,27 +170,6 @@ La `secret_key` de SearXNG no se almacena como un valor sensible dentro del repo
 
 La función principal de esta instancia es proporcionar búsqueda web a Open WebUI.
 
-El flujo utilizado es:
-
-```text
-Open WebUI
-     │
-     │ consulta de búsqueda
-     ▼
-  SearXNG
-     │
-     │ consulta motores externos
-     ▼
- Resultados
-     │
-     ▼
- Open WebUI
-     │
-     │ contexto recuperado
-     ▼
- Modelo local
-```
-
 Open WebUI utiliza los resultados obtenidos por SearXNG como contexto para que el modelo pueda responder preguntas que requieren información externa o actualizada.
 
 Esto permite mantener la inferencia del modelo local mientras se agrega acceso controlado a información disponible en Internet.
@@ -261,40 +179,6 @@ Esto permite mantener la inferencia del modelo local mientras se agrega acceso c
 # 🧠 Integración con Puck
 
 SearXNG es una pieza fundamental de la arquitectura de Puck.
-
-Sin búsqueda web:
-
-```text
-Usuario
-   ↓
-Puck
-   ↓
-Modelo local
-   ↓
-Respuesta basada principalmente en conocimiento existente
-```
-
-Con SearXNG:
-
-```text
-Usuario
-   ↓
-Puck
-   ↓
-Open WebUI
-   ↓
-SearXNG
-   ↓
-Internet
-   ↓
-Resultados relevantes
-   ↓
-Contexto
-   ↓
-Modelo local
-   ↓
-Respuesta
-```
 
 Esto permite que Puck pueda trabajar con información que cambia con el tiempo, como documentación, noticias, proyectos, versiones de software o información técnica reciente.
 
@@ -477,17 +361,16 @@ El diagnóstico pasó de:
 
 a:
 
-```text
+
 ¿Funciona SearXNG?
-        ↓
+        
 ¿Responde JSON?
-        ↓
+        
 ¿Devuelve resultados?
-        ↓
+        
 ¿Open WebUI puede consumirlos?
-        ↓
+        
 ¿El modelo procesa correctamente el contexto?
-```
 
 ### Aprendizaje
 
@@ -560,42 +443,16 @@ Se realizaron pruebas cambiando la configuración de Function Calling y del fluj
 El problema no parecía estar exclusivamente en SearXNG.
 
 La interacción involucraba:
-
-```text
 Modelo
-   ↕
 Open WebUI
-   ↕
 Web Search
-   ↕
 SearXNG
-```
 
 Por lo tanto, el comportamiento podía variar según el modelo utilizado y las capacidades de tool/function calling soportadas.
 
 ### Solución
 
 Para el flujo que se estaba utilizando se optó por desactivar el uso de Native Function Calling cuando interfería con la búsqueda web y utilizar el flujo de recuperación de contexto de Open WebUI.
-
-El flujo resultante era:
-
-```text
-Consulta
-   ↓
-Open WebUI
-   ↓
-SearXNG
-   ↓
-Resultados
-   ↓
-Contexto recuperado
-   ↓
-Prompt del modelo
-   ↓
-Qwen
-   ↓
-Respuesta
-```
 
 ### Aprendizaje
 
@@ -775,21 +632,14 @@ Uno de los principales aprendizajes fue dejar de tratar el sistema como una úni
 
 Cuando Puck no podía realizar una búsqueda correctamente, el problema podía estar en cualquiera de las capas:
 
-```text
+
 Modelo
-  ↓
 Open WebUI
-  ↓
 Configuración Web Search
-  ↓
 HTTP
-  ↓
 SearXNG
-  ↓
 Motor de búsqueda
-  ↓
 Internet
-```
 
 Por eso el diagnóstico se realizó progresivamente desde cada componente hasta encontrar el punto exacto de fallo.
 
