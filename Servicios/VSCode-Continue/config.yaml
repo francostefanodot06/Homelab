@@ -1,0 +1,14 @@
+name: Main Config
+version: 1.0.0
+schema: v1
+models:
+  - name: Modelo que vos elijas como agente
+    provider: ollama
+    model: Modelo que vos elijas como agente
+    apiBase: http://<IP_DE_TU_HOMELAB>:11434
+
+tabAutocompleteModel:
+  name: Modelo que vos elijas como autocompletado
+  provider: ollama
+  model: Modelo que vos elijas como autocompletado
+  apiBase: http://<IP_DE_TU_HOMELAB>:11434
