@@ -1,212 +1,174 @@
-# Navidrome
+🎧 Navidrome — Personal Music Server
 
-Servidor de música self-hosted del homelab, desplegado mediante Docker.
+Servidor de música personal desplegado mediante Docker utilizando Navidrome.
 
-Navidrome proporciona una interfaz web para gestionar y reproducir una biblioteca musical, manteniendo los archivos multimedia separados de los datos internos de la aplicación.
+El objetivo del servicio es disponer de una biblioteca musical centralizada y accesible desde distintos dispositivos dentro del homelab.
 
-## 🧩 Características
-
-La implementación utiliza:
-
-* **Navidrome** como servidor de música.
-* **Docker** para el despliegue y aislamiento del servicio.
-* Almacenamiento persistente para los datos de la aplicación.
-* Un directorio independiente para la biblioteca musical.
-* Interfaz web para reproducción y gestión de la biblioteca.
-* **MusicBrainz Picard** para normalización y organización de metadatos.
-
-## 🐳 Despliegue
+🏗️ Arquitectura
 
 Navidrome se ejecuta como un contenedor Docker independiente.
 
-La imagen utilizada actualmente es:
+┌───────────────────────────────┐
+│        Debian Docker          │
+│                               │
+│  ┌─────────────────────────┐  │
+│  │       Navidrome         │  │
+│  │                         │  │
+│  │  Web UI / Music Server  │  │
+│  │                         │  │
+│  │       Port: 4533        │  │
+│  └────────────┬────────────┘  │
+│               │               │
+│        ┌──────┴──────┐        │
+│        │             │        │
+│      /data         /music     │
+│        │             │        │
+│  Application      Music      │
+│     data          library    │
+└───────────────────────────────┘
+🐳 Docker
 
-```text
+Imagen utilizada:
+
 deluan/navidrome:latest
-```
+
+El contenedor utiliza una política de reinicio:
+
+unless-stopped
 
 El servicio utiliza el puerto:
 
-```text
 4533
-```
 
-La configuración de despliegue se mantiene separada de la documentación:
+El almacenamiento se divide en dos volúmenes:
 
-```text
-services/docker/services/navidrome/
-```
+Directorio	Función	Modo
+/data	Datos y configuración de Navidrome	RW
+/music	Biblioteca musical	RO
 
-El `docker-compose.yml` contiene únicamente la definición necesaria para reproducir el servicio.
+La biblioteca musical se monta en modo read-only para evitar modificaciones accidentales sobre los archivos originales desde el contenedor.
 
-## 💾 Almacenamiento
+⚙️ Configuración
 
-El contenedor utiliza dos volúmenes independientes:
+Las principales variables utilizadas son:
 
-| Volumen            | Uso                                      | Acceso            |
-| ------------------ | ---------------------------------------- | ----------------- |
-| Datos de Navidrome | Configuración, base de datos y metadatos | Lectura/escritura |
-| Biblioteca musical | Archivos multimedia                      | Solo lectura      |
-
-La biblioteca musical se monta como **read-only** dentro del contenedor.
-
-Esta separación permite:
-
-* Mantener los datos de la aplicación independientes de los archivos multimedia.
-* Facilitar backups y migraciones.
-* Proteger los archivos originales frente a modificaciones accidentales.
-* Gestionar la biblioteca independientemente del contenedor.
-
-## ⚙️ Configuración
-
-Las principales opciones utilizadas actualmente incluyen:
-
-```text
+ND_LOGLEVEL=info
+ND_SESSIONTIMEOUT=24h
 ND_MUSICFOLDER=/music
 ND_DATAFOLDER=/data
 ND_CONFIGFILE=/data/navidrome.toml
 ND_PORT=4533
-ND_LOGLEVEL=info
-ND_SESSIONTIMEOUT=24h
-```
 
-La configuración persistente de Navidrome se almacena dentro del volumen de datos.
+La configuración específica de la infraestructura no se incluye en el repositorio.
 
-No se almacenan credenciales ni información privada directamente en el repositorio.
+El docker-compose.yml incluido en este proyecto utiliza rutas relativas y sirve como ejemplo reproducible del despliegue.
 
-## 🎼 Gestión de la biblioteca
+🎵 Biblioteca musical
 
-La biblioteca musical se administra de forma independiente del contenedor de Navidrome.
+La biblioteca se almacena fuera del contenedor y se monta mediante un bind mount.
 
-**MusicBrainz Picard** se utiliza para identificar, corregir y normalizar los metadatos de los archivos musicales.
+Esto permite:
 
-El flujo general es:
+Mantener la música independiente del contenedor.
+Recrear el contenedor sin perder la biblioteca.
+Mantener los archivos originales protegidos contra escritura.
+Separar los datos de aplicación de los archivos multimedia.
+🏷️ Organización y metadatos
 
-```text
-Archivos musicales
-        │
-        ▼
-MusicBrainz Picard
-        │
-        ▼
-Metadatos normalizados
-        │
-        ▼
-Biblioteca musical
-        │
-        ▼
-Navidrome
-        │
-        ▼
-Reproducción
-```
+La biblioteca utiliza metadatos musicales para mantener organizada la colección.
 
-Esto permite mantener una biblioteca con información consistente sobre:
+Para la gestión y corrección de metadatos se utiliza MusicBrainz Picard, permitiendo normalizar información como:
 
-* Artistas.
-* Álbumes.
-* Canciones.
-* Géneros.
-* Portadas.
-* Metadatos.
+Artista.
+Álbum.
+Título.
+Número de pista.
+Portada.
+Metadatos adicionales.
 
-## ▶️ Reproducción
+Esto permite que Navidrome pueda identificar y organizar correctamente la biblioteca.
 
-Navidrome proporciona streaming de los archivos almacenados en la biblioteca.
+📊 Funcionamiento
 
-Durante las pruebas se verificó correctamente:
+Navidrome proporciona:
 
-* Reproducción desde navegador.
-* Streaming de archivos MP3.
-* Registro de reproducción.
-* Actualización del estado de reproducción.
-* Indexación de la biblioteca.
-* Acceso mediante la interfaz web.
+Interfaz web.
+Streaming de música.
+Organización por artistas y álbumes.
+Gestión de playlists.
+Historial de reproducción.
+Scrobbling.
+Compatibilidad con clientes Subsonic/OpenSubsonic.
+Acceso desde distintos dispositivos.
 
-## 🔍 Diagnóstico
+Durante las pruebas se verificó correctamente el streaming de diferentes archivos de la biblioteca.
 
-### Verificar el contenedor
+🔍 Administración
 
-```bash
+Para comprobar el estado del contenedor:
+
 docker ps
-```
 
-### Inspeccionar la imagen utilizada
+Consultar los logs:
 
-```bash
-docker inspect navidrome --format '{{json .Config.Image}}'
-```
+docker logs navidrome
 
-### Comprobar los volúmenes
+Seguir los logs en tiempo real:
 
-```bash
-docker inspect navidrome --format '{{json .Mounts}}'
-```
+docker logs -f navidrome
 
-### Consultar variables de configuración
+Inspeccionar la configuración del contenedor:
 
-```bash
-docker inspect navidrome --format '{{json .Config.Env}}'
-```
+docker inspect navidrome
 
-### Consultar logs
+Reiniciar el servicio:
 
-```bash
-docker logs --tail 50 navidrome
-```
+docker restart navidrome
+🛡️ Consideraciones de seguridad
 
-### Comprobar el estado
+El repositorio público no contiene:
 
-```bash
-docker inspect navidrome --format '{{.State.Status}}'
-```
+Direcciones IP privadas.
+Rutas reales del sistema.
+Credenciales.
+Contraseñas.
+Tokens.
+Configuraciones específicas de la infraestructura.
+Información personal de usuarios.
 
-## 🔐 Seguridad
+El docker-compose.yml incluido está sanitizado y utiliza rutas relativas para que pueda utilizarse como referencia sin revelar la estructura real del homelab.
 
-La documentación del servicio no contiene información sensible de la infraestructura.
+📁 Estructura
 
-No se deben publicar:
+Una implementación típica del proyecto puede utilizar:
 
-* Contraseñas.
-* Tokens.
-* API keys.
-* Credenciales.
-* Direcciones IP privadas.
-* Rutas específicas del sistema anfitrión.
-* Información de acceso a la biblioteca.
-* Logs que contengan actividad personal de reproducción.
+navidrome/
+├── docker-compose.yml
+├── data/
+└── music/
 
-Los valores específicos de infraestructura deben mantenerse fuera del repositorio público o reemplazarse por placeholders.
+Los directorios data/ y music/ no necesitan formar parte del repositorio.
 
-## 📁 Estructura
+🚀 Despliegue
 
-La documentación y configuración relacionada con Navidrome se organiza de forma independiente:
+Crear la estructura:
 
-```text
-services/
-└── docker/
-    └── services/
-        └── navidrome/
-            ├── docker-compose.yml
-            └── README.md
-```
+mkdir -p navidrome/{data,music}
+cd navidrome
 
-Los diagramas de arquitectura se documentarán posteriormente mediante **Excalidraw**, manteniéndolos como recursos independientes del README.
+Colocar el docker-compose.yml en el directorio y ejecutar:
 
-## 📚 Referencias
+docker compose up -d
 
-* [Navidrome](https://www.navidrome.org/)
-* [Navidrome Documentation](https://www.navidrome.org/docs/)
-* [Navidrome GitHub](https://github.com/navidrome/navidrome)
+Comprobar que el contenedor está funcionando:
 
----
+docker ps
+📌 Estado actual
 
-## 📌 Estado actual
+Estado: 🟢 Operativo
 
-**Estado:** 🟢 Operativo
+Navidrome se encuentra desplegado mediante Docker y funcionando correctamente como servidor de música personal dentro del homelab.
 
-Navidrome se encuentra desplegado mediante Docker y funcionando correctamente como servidor de música self-hosted.
+La biblioteca musical se encuentra separada del contenedor mediante bind mounts y montada en modo read-only.
 
-La reproducción y el streaming de la biblioteca funcionan correctamente, mientras que los datos de aplicación se mantienen separados de los archivos multimedia.
-
-La biblioteca utiliza MusicBrainz Picard para mantener sus metadatos organizados antes de ser indexada por Navidrome.
+La organización de metadatos se realiza mediante MusicBrainz Picard y Navidrome se encarga de proporcionar la interfaz y el streaming de la biblioteca.
