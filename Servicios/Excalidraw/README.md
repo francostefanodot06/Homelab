@@ -1,73 +1,84 @@
-Excalidraw
+🎨 Excalidraw — Homelab
 
-Excalidraw es una herramienta de diagramación y dibujo colaborativo que utilizo en mi homelab para crear y mantener los diagramas de arquitectura de la infraestructura.
+Self-hosted Excalidraw para diseñar, documentar y visualizar la arquitectura del homelab.
 
-La aplicación está desplegada mediante Docker Compose dentro de un contenedor LXC administrado por Proxmox.
+Excalidraw es una herramienta de diagramación que utilizo para documentar visualmente la infraestructura del homelab, incluyendo servidores, contenedores, servicios y conexiones entre componentes.
 
-Arquitectura
-Proxmox
-└── Contenedor LXC
-    └── Docker
-        └── Excalidraw
+La aplicación está desplegada de forma self-hosted mediante Docker Compose dentro de un contenedor LXC administrado por Proxmox.
 
-El contenedor de Excalidraw utiliza el puerto HTTP de la aplicación y publica un puerto del host para permitir el acceso desde la red autorizada.
+🏗️ Arquitectura
+🖥️ Proxmox
+   │
+   └── 📦 Contenedor LXC
+        │
+        └── 🐳 Docker
+             │
+             └── 🎨 Excalidraw
 
-Despliegue
+El servicio se ejecuta como un contenedor Docker independiente y se accede desde la red autorizada del homelab.
 
-El servicio se ejecuta utilizando la imagen oficial de Excalidraw:
+🚀 Despliegue
+
+Excalidraw se ejecuta utilizando la imagen oficial:
 
 excalidraw/excalidraw:latest
 
-La configuración se encuentra en:
+El despliegue se gestiona mediante Docker Compose.
 
-docker-compose.yml
-
-Para desplegar el servicio:
-
+📁 Estructura
+excalidraw/
+└── docker-compose.yml
+▶️ Iniciar
 docker compose up -d
-
-Para comprobar su estado:
-
+🔍 Comprobar estado
 docker ps
-
-Para consultar los logs:
-
+📋 Ver logs
 docker logs excalidraw
-Persistencia
+🔄 Reiniciar
+docker compose restart
+💾 Persistencia
 
-Actualmente el contenedor no utiliza volúmenes Docker.
+Actualmente Excalidraw no utiliza volúmenes Docker persistentes.
 
-Esto significa que la instalación se mantiene como un servicio principalmente orientado a la ejecución de la aplicación, mientras que los archivos de configuración del despliegue se mantienen en el repositorio del homelab.
+La configuración del servicio se mantiene mediante Docker Compose, mientras que los diagramas importantes del homelab pueden exportarse y almacenarse junto con la documentación del proyecto.
 
-Si en el futuro se incorpora almacenamiento persistente, se documentará en esta sección.
+💡 Si en el futuro se incorpora almacenamiento persistente, esta sección será actualizada.
 
-Actualización
+🔐 Acceso
+
+El servicio está destinado al uso interno del homelab y no se encuentra expuesto directamente a Internet.
+
+El acceso remoto se realiza mediante la infraestructura de red privada del homelab.
+
+Por motivos de seguridad, este repositorio no contiene:
+
+🌐 Direcciones IP privadas
+🔑 Información de acceso
+🛜 Configuración detallada de la red
+🖥️ Identificadores específicos de infraestructura
+🔒 Información sensible del entorno
+🛠️ Actualización
 
 Para actualizar la imagen:
 
 docker compose pull
 docker compose up -d
 
-Se recomienda verificar posteriormente que el contenedor se encuentre funcionando correctamente.
+Después de actualizar, se recomienda comprobar que el contenedor se encuentre funcionando correctamente:
 
-Acceso
+docker ps
+🧩 Tecnologías
+Tecnología	Uso
+🐧 Debian	Sistema operativo del entorno
+📦 Proxmox LXC	Virtualización / contenedorización
+🐳 Docker	Ejecución del servicio
+⚙️ Docker Compose	Orquestación
+🎨 Excalidraw	Diagramación
+📌 Estado
 
-Excalidraw se encuentra disponible únicamente a través de la red autorizada del homelab.
+🟢 Operativo
 
-No se publica directamente en Internet.
-
-El método concreto de acceso se mantiene fuera de la documentación pública para evitar exponer información de la infraestructura.
-
-Seguridad
-
-El servicio forma parte de la infraestructura interna del homelab y no está diseñado para exposición pública directa.
-
-Las direcciones IP, nombres internos, configuración de red y otros datos específicos de la infraestructura se mantienen fuera de este repositorio.
-
-Estado
-
-Estado: Operativo
-
-Método de despliegue: Docker Compose
-
-Entorno: Proxmox + LXC + Debian + Docker
+Tipo: Servicio self-hosted
+Despliegue: Docker Compose
+Entorno: Homelab
+Uso: Documentación y diagramación de infraestructura
