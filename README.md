@@ -123,7 +123,7 @@ Cada servicio contará con su propia documentación, incluyendo:
 - [x] NUT
 - [ ] Nextcloud
 - [ ] Vaultwarden
-- [ ] Excalidraw
+- [x] Excalidraw
 - [ ] Homepage
 - [ ] Reverse Proxy
 - [ ] HTTPS
