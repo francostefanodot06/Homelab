@@ -82,3 +82,4 @@ Tipo: Servicio self-hosted
 Despliegue: Docker Compose
 Entorno: Homelab
 Uso: Documentación y diagramación de infraestructura
+<p align="center"> 🎨 <b>Excalidraw</b> · 🏠 Homelab · 🐳 Docker · ⚙️ Proxmox </p>
