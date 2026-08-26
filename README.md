@@ -126,16 +126,14 @@ Cada servicio contará con su propia documentación, incluyendo:
 - [x] Puck
 - [x] Navidrome
 - [x] NUT
-- [ ] Nextcloud
+- [x] immich
 - [ ] Vaultwarden
 - [x] Excalidraw
 - [ ] Homepage
-- [ ] Reverse Proxy
-- [ ] HTTPS
+- [x] Nginx Proxy Manager
 - [ ] Monitoreo
 - [ ] Prometheus
 - [ ] Grafana
-- [ ] Authentik
 - [ ] Ansible
 - [ ] Kubernetes
 
