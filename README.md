@@ -62,6 +62,9 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 
 - ✅ Navidrome
 - ✅ NUT (Monitoreo de UPS)
+- ✅ Excalidraw
+- ✅ Immich
+- ✅ Nginx Proxy Manager (NPM)
 
 ---
 
