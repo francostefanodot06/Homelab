@@ -72,10 +72,7 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 
 - ⏳ Nextcloud
 - ⏳ Vaultwarden
-- ⏳ Excalidraw
 - ⏳ Homepage Dashboard
-- ⏳ Reverse Proxy
-- ⏳ HTTPS
 - ⏳ Prometheus
 - ⏳ Grafana
 - ⏳ Authentik
