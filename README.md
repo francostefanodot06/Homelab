@@ -62,6 +62,9 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 
 - ✅ Navidrome
 - ✅ NUT (Monitoreo de UPS)
+- ✅ Excalidraw
+- ✅ Immich
+- ✅ Nginx Proxy Manager (NPM)
 
 ---
 
@@ -90,6 +93,11 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 ├── docker/
 └── README.md
 ```
+<p align="center">
+  <img src="Servicios/Assets/homelab-architecture.png" alt="Arquitectura del Homelab" width="100%">
+  <br>
+  <em>Diagrama de arquitectura del Homelab en Proxmox (Excalidraw)</em>
+</p>
 
 La documentación irá creciendo junto con el homelab.
 
@@ -121,16 +129,14 @@ Cada servicio contará con su propia documentación, incluyendo:
 - [x] Puck
 - [x] Navidrome
 - [x] NUT
-- [ ] Nextcloud
+- [x] immich
 - [ ] Vaultwarden
 - [x] Excalidraw
 - [ ] Homepage
-- [ ] Reverse Proxy
-- [ ] HTTPS
+- [x] Nginx Proxy Manager
 - [ ] Monitoreo
 - [ ] Prometheus
 - [ ] Grafana
-- [ ] Authentik
 - [ ] Ansible
 - [ ] Kubernetes
 
