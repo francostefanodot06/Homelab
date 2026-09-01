@@ -68,18 +68,6 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 
 ---
 
-# 🚧 Próximos servicios
-
-- ⏳ Nextcloud
-- ⏳ Vaultwarden
-- ⏳ Homepage Dashboard
-- ⏳ Prometheus
-- ⏳ Grafana
-- ⏳ Authentik
-- ⏳ Tailscale
-
----
-
 # 📂 Estructura del repositorio
 
 ```
