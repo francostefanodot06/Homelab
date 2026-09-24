@@ -51,6 +51,7 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 
 - ✅ Docker
 - ✅ Docker Compose
+- ✅ Portainer
 
 ## Inteligencia Artificial
 
@@ -65,6 +66,10 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 - ✅ Excalidraw
 - ✅ Immich
 - ✅ Nginx Proxy Manager (NPM)
+- ✅ Vaultwarden
+- ✅ Jellyfin
+- ✅ UptimeKuma
+- ✅ Homepage
 
 ---
 
