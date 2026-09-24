@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    environment:
+      - WEBSOCKET_ENABLED=true # Necesario para la sincronización en vivo
+      - SIGNUPS_ALLOWED=false # ¡Cámbialo a 'true' SOLO la primera vez para crear tu cuenta!
+      - ADMIN_TOKEN=genera_un_token_largo_y_seguro_aqui_para_el_panel_admin
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /path/to/appdata/vaultwarden:/data
+    ports:
+      - 8081:80 # Puerto local. El Proxy Inverso (NPM) debe apuntar aquí por el puerto 80.
+    restart: always
