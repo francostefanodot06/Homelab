@@ -12,3 +12,13 @@ El *stack* se compone de microservicios contenerizados que se comunican de forma
 * **Bazarr:** Servicio auxiliar de procesamiento por lotes para la extracción y sincronización automática de metadatos y subtítulos, basado en perfiles de idioma configurados.
 * **Prowlarr:** Indexador centralizado y gestor de *proxies* que unifica y administra las comunicaciones y autenticaciones con múltiples bases de datos externas.
 * **qBittorrent:** Cliente de transferencias P2P de alto rendimiento, orquestado remotamente a través de webhooks por el *stack* de gestión.
+
+📂 Estructura de Volúmenes Requerida
+
+Es fundamental que los contenedores compartan la misma estructura base para que los "Hardlinks" funcionen correctamente y no dupliques espacio en el disco.
+
+/media/multimedia/Descargas
+
+/media/multimedia/Peliculas
+
+/media/multimedia/Series
