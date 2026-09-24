@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Permite a Portainer gestionar Docker
+      - /path/to/appdata/portainer:/data
+    ports:
+      - 9000:9000 # Interfaz Web HTTP
+      - 8000:8000 # Puerto para Edge Agents (opcional, pero recomendado dejarlo)
+    restart: always
