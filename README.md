@@ -120,9 +120,12 @@ Cada servicio contará con su propia documentación, incluyendo:
 - [x] Navidrome
 - [x] NUT
 - [x] immich
-- [ ] Vaultwarden
+- [x] Vaultwarden
 - [x] Excalidraw
-- [ ] Homepage
+- [x] Homepage
+- [x] Jellyfin
+- [x] Portainer
+- [x] UptimeKuma
 - [x] Nginx Proxy Manager
 - [ ] Monitoreo
 - [ ] Prometheus
