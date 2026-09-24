@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+homepage:
+image: ghcr.io/gethomepage/homepage:latest
+container_name: homepage
+restart: unless-stopped
+ports:
+- 3000:3000
+volumes:
+- /opt/homepage/config:/app/config # Asegurate de que esta ruta coincida con tu host
+- /var/run/docker.sock:/var/run/docker.sock:ro # Opcional: Para integración futura con Docker API
+environment:
+- TZ=America/Argentina/Buenos_Aires
