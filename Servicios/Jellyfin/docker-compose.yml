@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /path/to/appdata/jellyfin:/config
+      - /media/multimedia/Series:/data/tvshows
+      - /media/multimedia/Peliculas:/data/movies
+    ports:
+      - 8096:8096
+    restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+      - WEBUI_PORT=8080
+    volumes:
+      - /path/to/appdata/qbittorrent:/config
+      - /media/multimedia/Descargas:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /path/to/appdata/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /path/to/appdata/radarr:/config
+      - /media/multimedia/Peliculas:/movies
+      - /media/multimedia/Descargas:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /path/to/appdata/sonarr:/config
+      - /media/multimedia/Series:/tv
+      - /media/multimedia/Descargas:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /path/to/appdata/bazarr:/config
+      - /media/multimedia/Series:/tv
+      - /media/multimedia/Peliculas:/movies
+    ports:
+      - 6767:6767
+    restart: unless-stopped
