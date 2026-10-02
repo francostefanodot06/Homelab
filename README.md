@@ -149,4 +149,10 @@ Mi objetivo es seguir ampliando este laboratorio mientras avanzo en mi formació
 
 Proyecto en desarrollo activo.
 
-La infraestructura y la documentación se actualizan constantemente a medida que incorporo nuevos servicios y tecnologías.
+La infraestructura y la d## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+> This license applies to the original code, configuration, scripts and documentation created for this repository.
+> Third-party software and services retain their respective licenses.ocumentación se actualizan constantemente a medida que incorporo nuevos servicios y tecnologías.
+
