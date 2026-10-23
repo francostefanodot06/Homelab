@@ -4,6 +4,14 @@ Para mantener el control absoluto sobre los recursos del clúster (hardware fís
 
 Esta infraestructura me permite no solo reaccionar ante caídas de servicios, sino anticiparme a cuellos de botella mediante análisis de tendencias históricas.
 
+#### Stack Principal: Prometheus, Grafana, Loki, Promtail, cAdvisor y Node Exporter
+<p align="center">
+  <img src="Servicios/Assets/Alertas-en-Grafana.png" alt="Alertas en Grafana funcionando y a la espera        
+            del error o problema que llegue a manifestarse" width="100%">
+  <br>
+  <em>Alertas del Homelab en Proxmox (Grafana)</em>
+</p>
+
 ### 🧩 Arquitectura de Componentes
 
 La mayoría de estos servicios corren unificados bajo el stack `monitoring-stackpa` para asegurar una resolución de nombres (DNS interno de Docker) fluida y segura entre los contenedores.
@@ -24,10 +32,4 @@ La mayoría de estos servicios corren unificados bajo el stack `monitoring-stack
 
 ---
 
-#### Stack Principal: Prometheus, Grafana, Loki, Promtail, cAdvisor y Node Exporter
-<p align="center">
-  <img src="Servicios/Assets/Alertas-en-Grafana.png" alt="Alertas en Grafana funcionando y a la espera        
-            del error o problema que llegue a manifestarse" width="100%">
-  <br>
-  <em>Alertas del Homelab en Proxmox (Grafana)</em>
-</p>
+
