@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  nut-exporter:
+    image: ghcr.io/druggeri/nut_exporter:latest
+    container_name: nut-exporter
+    restart: unless-stopped
+    ports:
+      - "9199:9199"
+    environment:
+      - NUT_EXPORTER_SERVER=IP_DE_TU_SERVIDOR_NUT
