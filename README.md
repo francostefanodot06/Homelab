@@ -127,10 +127,10 @@ Cada servicio contará con su propia documentación, incluyendo:
 - [x] Portainer
 - [x] UptimeKuma
 - [x] Nginx Proxy Manager
-- [ ] Monitoreo
-- [ ] Prometheus
-- [ ] Grafana
-- [ ] Ansible
+- [x] Monitoreo
+- [x] Prometheus
+- [x] Grafana
+- [x] Ansible
 - [ ] Kubernetes
 
 ---
