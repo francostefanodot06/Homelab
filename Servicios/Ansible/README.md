@@ -38,3 +38,8 @@ Playbook diseñado para ejecutarse sobre el inventario de nodos de Docker, orque
 **Desplegar un nuevo contenedor:**
 ```bash
 ansible-playbook playbooks/lxc-api-create.yml -e "vmid=410 template=debian-12-standard_12.12-1_amd64.tar.zst hostname=servicio-api cores=2 memory=2048 pve_password=TuPasswordSeguro"
+
+Aprovisionar y aplicar Hardening:
+
+Bash
+ansible-playbook playbooks/lxc-provision.yml -i inventory.ini -c ssh --ask-pass -e "vmid=410"
