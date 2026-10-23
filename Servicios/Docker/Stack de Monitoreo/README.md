@@ -6,7 +6,7 @@ Esta infraestructura me permite no solo reaccionar ante caídas de servicios, si
 
 #### Stack Principal: Prometheus, Grafana, Loki, Promtail, cAdvisor y Node Exporter
 <p align="center">
-  <img src="./Assets/Alertas-en-Grafana.png" alt="Alertas en Grafana funcionando y a la espera del error o problema que llegue a manifestarse" width="100%"> <br>
+  <img src="/Servicios/Assets/Alertas-en-Grafana.png" alt="Alertas en Grafana funcionando y a la espera del error o problema que llegue a manifestarse" width="100%"> <br>
   <em>Alertas del Homelab en Proxmox (Grafana)</em>
 </p>
 
