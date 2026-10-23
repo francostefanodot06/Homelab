@@ -29,4 +29,4 @@ La mayoría de estos servicios corren unificados bajo el stack `monitoring-stack
   <img src="Servicios/Assets/Alertas en Grafana.png" alt="Alertas en Grafana funcionando y a la espera del error o problema que llegue a manifestarse" width="100%">
   <br>
   <em>Alertas del Homelab en Proxmox (Grafana)</em>
-</p>
+  </p>
