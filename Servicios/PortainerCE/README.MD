@@ -7,3 +7,6 @@ Plataforma de administración visual desplegada para monitorizar y gestionar de 
 * **Observabilidad y Monitoreo:** Supervisión en tiempo real del consumo de recursos (CPU, memoria, I/O de red) de cada microservicio del nodo.
 * **Auditoría y Logs:** Acceso directo a la salida estándar (STDOUT/STDERR) de cada contenedor para agilizar el *troubleshooting* y la depuración de errores.
 * **Gestión de Volúmenes y Redes:** Aislamiento seguro y administración de la persistencia de datos (Appdata) garantizando que la configuración sobreviva a reinicios.
+ 
+ 
+ **Debajo es donde dejo dos archivos de docker-compose, 1 es el docker-compose.yml de Portainer en sí y el otro es el docker-compose.yaml del agente de Portainer, ya que en esta actualizacion lo integré en cada LXC donde tenia Docker incluido**
