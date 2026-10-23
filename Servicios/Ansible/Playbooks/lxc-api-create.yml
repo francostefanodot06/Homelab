@@ -1,0 +1,38 @@
+- name: Crear y Arrancar LXC vía API de Proxmox
+  hosts: localhost
+  gather_facts: false
+  vars:
+    # Estas variables se pueden pasar por comando con -e
+    proxmox_ip: "192.0.X.X"
+    proxmox_node: "nombre_del_nodo"
+    storage_pool: "local-lvm"
+  tasks:
+    - name: 1. Crear el contenedor en Proxmox
+      community.general.proxmox:
+        api_host: "{{ proxmox_ip }}"
+        api_user: "root@pam"
+        api_password: "{{ pve_password }}"
+        validate_certs: false
+        node: "{{ proxmox_node }}"
+        vmid: "{{ vmid }}"
+        hostname: "{{ hostname }}"
+        ostemplate: "local:vztmpl/{{ template }}"
+        storage: "{{ storage_pool }}"
+        cores: "{{ cores }}"
+        memory: "{{ memory }}"
+        swap: 512
+        unprivileged: true
+        netif: '{"net0":"name=eth0,bridge=vmbr0,ip=dhcp"}'
+        features: ["nesting=1"]
+        timeout: 120
+        state: present
+
+    - name: 2. Encender el contenedor
+      community.general.proxmox:
+        api_host: "{{ proxmox_ip }}"
+        api_user: "root@pam"
+        api_password: "{{ pve_password }}"
+        validate_certs: false
+        node: "{{ proxmox_node }}"
+        vmid: "{{ vmid }}"
+        state: started
