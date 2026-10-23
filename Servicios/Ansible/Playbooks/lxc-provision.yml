@@ -1,0 +1,24 @@
+- name: Aprovisionar y Hardening de LXC en Proxmox
+  hosts: proxmox_host # Apunta al hipervisor en tu inventory.ini
+  gather_facts: false
+  tasks:
+    - name: 1. Configurar Zona Horaria a Buenos Aires
+      raw: pct exec {{ vmid }} -- timedatectl set-timezone America/Argentina/Buenos_Aires
+
+    - name: 2. Actualizar sistema e instalar utilidades base y seguridad
+      raw: |
+        pct exec {{ vmid }} -- env DEBIAN_FRONTEND=noninteractive apt-get update
+        pct exec {{ vmid }} -- env DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget htop fail2ban
+
+    - name: 3. Instalar Tailscale para acceso remoto seguro
+      raw: pct exec {{ vmid }} -- bash -c "curl -fsSL https://tailscale.com/install.sh | sh"
+
+    - name: 4. Hardening de SSH (Deshabilitar login por contraseña)
+      raw: |
+        pct exec {{ vmid }} -- sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+        pct exec {{ vmid }} -- sed -i 's/^#*PermitRootLogin.*/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
+
+    - name: 5. Aplicar cambios y activar servicios
+      raw: |
+        pct exec {{ vmid }} -- systemctl restart ssh
+        pct exec {{ vmid }} -- systemctl enable --now fail2ban
