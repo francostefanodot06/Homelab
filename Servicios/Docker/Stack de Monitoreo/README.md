@@ -24,8 +24,4 @@ La mayoría de estos servicios corren unificados bajo el stack `monitoring-stack
 
 ---
 
-### 🛠️ Despliegue (Docker Compose)
-
-El stack principal de monitoreo (`monitoring-stackpa`) se despliega mediante el siguiente `docker-compose.yml`. Las configuraciones sensibles y los mapeos de red complejos han sido abstraídos.
-
 #### Stack Principal: Prometheus, Grafana, Loki, Promtail, cAdvisor y Node Exporter
