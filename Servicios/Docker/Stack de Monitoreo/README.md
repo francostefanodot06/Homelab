@@ -28,6 +28,15 @@ La mayoría de estos servicios corren unificados bajo el stack `monitoring-stack
 *   **Grafana (`grafana/grafana:latest`):** El cerebro visual de la operación. Centraliza la data de Prometheus y Loki en dashboards interactivos. Además, su motor interno de Alertmanager evalúa reglas con filtros anti-spam (ej: CPU > 85% durante 5 min) y dispara webhooks ante emergencias.
 *   **Portainer Agent (`portainer/agent:latest`):** Agente Edge ligero que permite gestionar este nodo de Docker de forma remota y segura desde la instancia principal de Portainer.
 
+### 📸 Dashboards en Acción
+
+**Telemetría de Contenedores y Hardware (cAdvisor / Node Exporter):**
+![Métricas de LXC](/Servicios/Assets/Ejemplo-de-Metricas-de-un-LXC.png)
+![Métricas de LXC 1](/Servicios/Assets/Ejemplo-de-Metricas-de-un-LXC1.png)
+
+**Monitoreo Eléctrico (NUT Exporter):**
+![Estado de la UPS NUT](/Servicios/Assets/UPS-NUT.png)
+
 ---
 
 
