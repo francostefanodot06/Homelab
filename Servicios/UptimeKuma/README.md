@@ -2,6 +2,11 @@ Uptime Kuma - Stack de Monitoreo 📊
 
 Este directorio contiene la configuración de despliegue para Uptime Kuma, una herramienta de monitoreo autoalojada que utilizo para llevar un registro del estado, tiempo de actividad (uptime) y latencia de todos los servicios críticos dentro de mi entorno de Proxmox.
 
+<p align="center">
+  <img src="/Servicios/Assets/UptimeKumaInicial.png" alt="Estado de algunos de los servicios y su conectividad " width="100%"> <br>
+  <em>Estado de algunos servicios del Homelab en Proxmox (Uptime Kuma)</em>
+</p>
+
 📌 Características
 
 Monitoreo Activo: Rastrea HTTP(s), Ping y resoluciones DNS para todos los contenedores LXC internos y stacks de Docker.
