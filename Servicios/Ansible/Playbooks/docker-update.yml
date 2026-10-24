@@ -8,6 +8,8 @@
         image: containrrr/watchtower
         env:
           DOCKER_API_VERSION: "1.44"
+        security_opts:
+          - apparmor:unconfined
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
         command: --run-once --cleanup
