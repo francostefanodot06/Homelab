@@ -1,12 +1,13 @@
 - name: Mantenimiento de Contenedores Docker
-  hosts: docker_nodes # Grupo en tu inventory.ini con las IPs de los LXC
+  hosts: docker_nodes
   become: true
   tasks:
     - name: Actualizar contenedores y limpiar imágenes con Watchtower
       community.docker.docker_container:
         name: watchtower
         image: containrrr/watchtower
-        api_version: "1.44"
+        env:
+          DOCKER_API_VERSION: "1.44"
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
         command: --run-once --cleanup
