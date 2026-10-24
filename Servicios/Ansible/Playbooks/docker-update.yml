@@ -6,6 +6,7 @@
       community.docker.docker_container:
         name: watchtower
         image: containrrr/watchtower
+        api_version: "1.44"
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
         command: --run-once --cleanup
