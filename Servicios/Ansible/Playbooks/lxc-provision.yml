@@ -13,6 +13,13 @@
     - name: 3. Instalar Tailscale para acceso remoto seguro
       raw: pct exec {{ vmid }} -- bash -c "curl -fsSL https://tailscale.com/install.sh | sh"
 
+    - name: 3.5. Inyectar llave pública SSH de Semaphore
+      raw: |
+        pct exec {{ vmid }} -- mkdir -p /root/.ssh
+        pct exec {{ vmid }} -- chmod 700 /root/.ssh
+        pct exec {{ vmid }} -- bash -c "cat /root/semaphore_key.pub >> /root/.ssh/authorized_keys"
+        pct exec {{ vmid }} -- chmod 600 /root/.ssh/authorized_keys
+        
     - name: 4. Hardening de SSH (Deshabilitar login por contraseña)
       raw: |
         pct exec {{ vmid }} -- sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
