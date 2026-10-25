@@ -10,6 +10,12 @@
         pct exec {{ vmid }} -- env DEBIAN_FRONTEND=noninteractive apt-get update
         pct exec {{ vmid }} -- env DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget htop fail2ban
 
+        - name: 2.5. Habilitar TUN en la configuración del LXC para Tailscale
+      raw: |
+        grep -q "lxc.cgroup2.devices.allow: c 10:200 rwm" /etc/pve/lxc/{{ vmid }}.conf || echo "lxc.cgroup2.devices.allow: c 10:200 rwm" >> /etc/pve/lxc/{{ vmid }}.conf
+        grep -q "lxc.mount.entry: /dev/net/tun" /etc/pve/lxc/{{ vmid }}.conf || echo "lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file" >> /etc/pve/lxc/{{ vmid }}.conf
+        pct stop {{ vmid }} && pct start {{ vmid }}
+
     - name: 3. Instalar Tailscale para acceso remoto seguro
       raw: pct exec {{ vmid }} -- bash -c "curl -fsSL https://tailscale.com/install.sh | sh"
 
