@@ -1,5 +1,5 @@
 - name: Aprovisionar y Hardening de LXC en Proxmox
-  hosts: proxmox_host # Apunta al hipervisor en tu inventory.ini
+  hosts: proxmox # Apunta al hipervisor en tu inventory.ini
   gather_facts: false
   tasks:
     - name: 1. Configurar Zona Horaria a Buenos Aires
