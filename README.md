@@ -133,6 +133,7 @@ Este homelab me permite experimentar con tecnologías utilizadas en empresas, co
 Mi objetivo es seguir ampliando este laboratorio mientras avanzo en mi formación como desarrollador y continúo aprendiendo sobre infraestructura, automatización y computación en la nube.
 
 Además cuando uno piensa en tener o aprender como hacer un Homelab o un Servidor Casero es porque nace una necesidad, hay muchas necesidades en este ámbito, la mia principalmente es aprender y disfrutar de lo construido.
+
 ---
 
 ## 🚀 Estado del proyecto
