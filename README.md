@@ -84,7 +84,7 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 └── README.md
 ```
 <p align="center">
-  <img src="Servicios/Assets/homelab-architecture.png" alt="Arquitectura del Homelab" width="100%">
+  <img src="Servicios/Assets/homelab-architecture1.png" alt="Arquitectura del Homelab" width="100%">
   <br>
   <em>Diagrama de arquitectura del Homelab en Proxmox (Excalidraw)</em>
 </p>
