@@ -75,7 +75,9 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 - ✅ Stack *arr
 - ✅ OpenGym
 - ✅ NutriTrace
-
+- ✅ Stirling PDF
+- ✅ Crafty Controller
+- ✅ Forgejo
 ---
 
 # 📂 Estructura del repositorio
