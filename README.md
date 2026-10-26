@@ -50,12 +50,18 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 - ✅ Ansible
 - ✅ Ansible Semaphore
 - ✅ NUT (Monitoreo de UPS)
+- ✅ Grafana
+- ✅ Prometheus
+- ✅ Loki + Promtail 
+- ✅ Node Exporter + cAdvisor
 
 ## Contenedores y Redes
 
 - ✅ Docker
 - ✅ Docker Compose
 - ✅ Portainer
+- ✅ Nginx Proxy Manager (NPM)
+- ✅ Authentik
 
 ## Inteligencia Artificial
 
@@ -68,7 +74,6 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 - ✅ Navidrome
 - ✅ Excalidraw
 - ✅ Immich
-- ✅ Nginx Proxy Manager (NPM)
 - ✅ Vaultwarden
 - ✅ Jellyfin
 - ✅ UptimeKuma
