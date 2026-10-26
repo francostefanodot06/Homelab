@@ -70,6 +70,11 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 - ✅ Jellyfin
 - ✅ UptimeKuma
 - ✅ Homepage
+- ✅ Ansible
+- ✅ Ansible Semaphore
+- ✅ Stack *arr
+- ✅ UptimeKuma
+- ✅ Homepage
 
 ---
 
