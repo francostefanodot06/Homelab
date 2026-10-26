@@ -73,8 +73,8 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 - ✅ Ansible
 - ✅ Ansible Semaphore
 - ✅ Stack *arr
-- ✅ UptimeKuma
-- ✅ Homepage
+- ✅ OpenGym
+- ✅ NutriTrace
 
 ---
 
