@@ -42,12 +42,16 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 
 # 🧰 Tecnologías utilizadas
 
-## Virtualización
+## Virtualización e Infraestructura
 
 - ✅ Proxmox VE
 - ✅ Máquina Virtual Debian
+- ✅ Forgejo
+- ✅ Ansible
+- ✅ Ansible Semaphore
+- ✅ NUT (Monitoreo de UPS)
 
-## Contenedores
+## Contenedores y Redes
 
 - ✅ Docker
 - ✅ Docker Compose
@@ -62,7 +66,6 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 ## Servicios Self-Hosted
 
 - ✅ Navidrome
-- ✅ NUT (Monitoreo de UPS)
 - ✅ Excalidraw
 - ✅ Immich
 - ✅ Nginx Proxy Manager (NPM)
@@ -70,14 +73,12 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 - ✅ Jellyfin
 - ✅ UptimeKuma
 - ✅ Homepage
-- ✅ Ansible
-- ✅ Ansible Semaphore
 - ✅ Stack *arr
 - ✅ OpenGym
 - ✅ NutriTrace
 - ✅ Stirling PDF
 - ✅ Crafty Controller
-- ✅ Forgejo
+
 ---
 
 # 📂 Estructura del repositorio
