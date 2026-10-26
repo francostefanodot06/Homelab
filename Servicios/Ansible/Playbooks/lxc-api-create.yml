@@ -27,7 +27,7 @@
         timeout: 120
         state: present
 
-    - name: 2. Encender el contenedor
+   - name: 2. Encender el contenedor
       community.general.proxmox:
         api_host: "{{ proxmox_ip }}"
         api_user: "root@pam"
@@ -35,4 +35,5 @@
         validate_certs: false
         node: "{{ proxmox_node }}"
         vmid: "{{ vmid }}"
+        hostname: "{{ hostname }}"  # <-- Esta es la pieza que faltaba
         state: started
