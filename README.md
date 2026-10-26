@@ -62,13 +62,15 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 - ✅ Portainer
 - ✅ Nginx Proxy Manager (NPM)
 - ✅ Authentik
+- ✅ UptimeKuma
 
 ## Inteligencia Artificial
 
 - ✅ Ollama
 - ✅ Open WebUI
 - ✅ Puck (Asistente de IA Local)
-
+- ✅ Function calling
+- ✅ Piper TTS
 ## Servicios Self-Hosted
 
 - ✅ Navidrome
@@ -76,7 +78,6 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
 - ✅ Immich
 - ✅ Vaultwarden
 - ✅ Jellyfin
-- ✅ UptimeKuma
 - ✅ Homepage
 - ✅ Stack *arr
 - ✅ OpenGym
