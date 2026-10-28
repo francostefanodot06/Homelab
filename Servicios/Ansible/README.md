@@ -1,45 +1,30 @@
-# ⚙️ Ansible Automation - Proxmox Homelab
+# 🏗️ Infraestructura como Código (IaC) y Automatización CI/CD
 
-Este repositorio contiene los playbooks de **Ansible** utilizados para automatizar la creación, aprovisionamiento y mantenimiento de infraestructura en un entorno **Proxmox VE**. 
+Este módulo implementa **Infraestructura como Código (IaC)** para eliminar intervenciones manuales y lograr despliegues predecibles en un entorno **Proxmox VE**[cite: 2]. Se utiliza **Ansible** para la configuración declarativa de los contenedores LXC (Debian 12) y **Ansible Semaphore** como motor de ejecución (CI/CD)[cite: 2].
 
-El objetivo de este proyecto es aplicar los principios de **Infraestructura como Código (IaC)** para eliminar tareas manuales, estandarizar configuraciones de seguridad (Hardening) y gestionar contenedores LXC de forma declarativa y predecible.
+![Ejecución de Tareas en Semaphore](image_81a09e.png)
+*Interfaz de Task Templates en Semaphore evidenciando la correcta ejecución de los pipelines de creación, aprovisionamiento y actualización[cite: 1].*
 
-## 🛠️ Stack Tecnológico y Herramientas
-* **Hipervisor:** Proxmox VE.
-* **Automatización:** Ansible + Ansible Galaxy (`community.general.proxmox`).
-* **Sistemas Operativos:** Debian 12 (Contenedores LXC unprivileged con `nesting=1`).
-* **Seguridad & Redes:** Tailscale (VPN Mesh), Fail2ban, OpenSSH (Hardening).
-* **Gestión de Cargas:** Docker & Watchtower.
+## 🛠️ Stack Tecnológico
+* **Hipervisor:** Proxmox VE[cite: 2].
+* **Gestión de Configuración:** Ansible y la colección `community.general.proxmox`[cite: 2].
+* **Seguridad y Redes:** Hardening de OpenSSH, Fail2ban y Tailscale para VPN Mesh[cite: 2].
+* **Manejo de Contenedores:** Docker administrado mediante actualizaciones efímeras con Watchtower[cite: 2].
 
-## 📂 Arquitectura de Playbooks
+## 📂 Arquitectura del Pipeline y Playbooks
 
-El flujo de trabajo se divide lógicamente en tres fases para garantizar idempotencia y seguridad:
+El flujo de trabajo automatizado se divide en tres fases para garantizar la idempotencia, el aislamiento y la seguridad desde el primer segundo de vida del servidor[cite: 2]:
 
-### 1. Creación por API (`lxc-api-create.yml`)
-Interactúa directamente con la API de Proxmox (puerto 8006) para desplegar el contenedor.
-* Asigna recursos (Cores, RAM, Storage local/SSD).
-* Inyecta dependencias estructurales necesarias (`features: ["nesting=1"]`) para soportar systemd 252 y cargas de Docker.
-* Maneja tiempos de espera prolongados (`timeout`) para extracciones de plantillas pesadas.
+### Fase 1: Aprovisionamiento de Infraestructura (`lxc-api-create.yml`)
+* Interactúa directamente con la API de Proxmox para aprovisionar contenedores sin necesidad de acceso SSH previo[cite: 2, 3].
+* Asigna recursos dinámicamente e inyecta la directiva `nesting=1` para soportar cargas de trabajo de Docker[cite: 2, 3].
 
-### 2. Aprovisionamiento Interno (`lxc-provision.yml`)
-En lugar de depender de una IP dinámica inicial o exponer SSH por defecto, este playbook se conecta al Host físico y utiliza comandos `pct exec` para configurar el contenedor desde adentro de forma segura.
-* **Hardening:** Deshabilita el login por contraseña en SSH y configura `PermitRootLogin prohibit-password`.
-* **Seguridad:** Instala y activa Fail2ban.
-* **Redes:** Instala Tailscale y mapea dispositivos TUN (`/dev/net/tun`) para acceso seguro a la red.
-* **Base:** Establece zona horaria local y actualiza repositorios `apt`.
+### Fase 2: Hardening y Configuración (`lxc-provision.yml`)
+En lugar de depender de credenciales por defecto expuestas a la red, este playbook se ejecuta a través del host físico utilizando comandos `pct exec` para un aprovisionamiento "Zero-Network"[cite: 2, 4].
+* **Sincronización:** Establece la zona horaria del contenedor en `America/Argentina/Buenos_Aires`[cite: 4].
+* **Seguridad Perimetral:** Instala Fail2ban y deshabilita la autenticación por contraseña (`PasswordAuthentication no`) y el acceso root (`PermitRootLogin prohibit-password`) en SSH[cite: 2, 4].
+* **Identidad:** Inyecta automáticamente la llave pública SSH (`semaphore_key.pub`) de Ansible Semaphore para delegar el control seguro[cite: 4].
+* **Redes:** Habilita los dispositivos TUN (`/dev/net/tun`) en la configuración del LXC y despliega Tailscale para acceso a través de la red Mesh[cite: 4].
 
-### 3. Mantenimiento Continuo (`docker-update.yml`)
-Playbook diseñado para ejecutarse sobre el inventario de nodos de Docker, orquestando **Watchtower** de forma efímera (`--run-once --cleanup`) para mantener las imágenes al día sin intervención manual, respetando la regla del *Release Lag* programando su ejecución según sea necesario.
-
-## 🚀 Uso y Ejecución
-
-*Nota: Las variables sensibles y contraseñas se pasan en tiempo de ejecución o mediante Ansible Vault para no exponer credenciales en el repositorio.*
-
-**Desplegar un nuevo contenedor:**
-```bash
-ansible-playbook playbooks/lxc-api-create.yml -e "vmid=410 template=debian-12-standard_12.12-1_amd64.tar.zst hostname=servicio-api cores=2 memory=2048 pve_password=TuPasswordSeguro"
-
-###Aprovisionar y aplicar Hardening:
-
-Bash
-ansible-playbook playbooks/lxc-provision.yml -i inventory.ini -c ssh --ask-pass -e "vmid=410"
+### Fase 3: Mantenimiento Continuo (`docker-update.yml`)
+* Orquesta el ciclo de vida de los servicios contenerizados ejecutando **Watchtower** de manera efímera mediante los comandos `--run-once` y `--cleanup`[cite: 2, 5]. Esto mantiene las imágenes de Docker actualizadas sin dejar procesos residuales en ejecución[cite: 2, 5].
