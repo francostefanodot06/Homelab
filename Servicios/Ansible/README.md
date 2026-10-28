@@ -2,7 +2,7 @@
 
 Este módulo implementa **Infraestructura como Código (IaC)** para eliminar intervenciones manuales y lograr despliegues predecibles en un entorno **Proxmox VE**[cite: 2]. Se utiliza **Ansible** para la configuración declarativa de los contenedores LXC (Debian 12) y **Ansible Semaphore** como motor de ejecución (CI/CD)[cite: 2].
 
-![Ejecución de Tareas en Semaphore](assets/tareas-semaphore.png)
+![Ejecución de Tareas en Semaphore](./assets/tareas-semaphore.png)
 *Interfaz de Task Templates en Semaphore evidenciando la correcta ejecución de los pipelines de creación, aprovisionamiento y actualización[cite: 1].*
 
 ## 🛠️ Stack Tecnológico
