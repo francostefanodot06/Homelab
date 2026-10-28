@@ -102,6 +102,21 @@ Cada servicio que agrego está documentado para registrar el proceso de instalac
   <br>
   <em>Diagrama de arquitectura del Homelab en Proxmox (Excalidraw)</em>
 </p>
+<p align="center">
+  <img src="Servicios/Assets/homelab-architecture1.png" alt="Arquitectura del Homelab" width="100%">
+  <br>
+  <em>Diagrama de arquitectura del Homelab en Proxmox (Excalidraw)</em>
+</p>
+<p align="center">
+  <img src="Servicios/Assets/home-observabilidad.webp" alt="Parte del sector de Observabilidad" width="100%">
+  <br>
+  <em>Imagen de parte de la observabilidad en el dashboard en Home Page</em>
+</p>
+<p align="center">
+  <img src="Servicios/Assets/home-infraestructura.webp" alt="Sector Infraestructura" width="100%">
+  <br>
+  <em>Imagen de parte de la infraestructura en el dashboard en Home Page</em>
+</p>
 
 La documentación irá creciendo junto con el homelab.
 
